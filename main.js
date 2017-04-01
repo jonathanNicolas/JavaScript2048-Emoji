@@ -101,6 +101,21 @@ $(document).ready( function(){
                 randId = Math.floor(Math.random() * dispo.length);
                 console.log(randId);
                 $newdiv.appendTo( $("#"+dispo[randId]) );
+                randIdBis = Math.floor(Math.random() * 2);
+                var alea;
+                if (randIdBis == 1)
+                    alea = 2;
+                else
+                    alea = 4;
+
+                var index = 1;
+                for (var i = 0; i < 4; i++) {
+                    for (var j = 0; j < 4; j++) {
+                        if (index == dispo[randId])
+                            initGrid[i][j] = alea;
+                        index++;
+                    }
+                }
 
             };
             init();
