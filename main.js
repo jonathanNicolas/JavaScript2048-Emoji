@@ -87,20 +87,14 @@ $(document).ready( function(){
             var randDiv = function (){
                 var divsize = blockSize;
                 var color = '#'+ Math.round(0xffffff * Math.random()).toString(16);
-                $newdiv = $('<div/>').css({
-                    'width':divsize+'px',
-                    'height':divsize+'px',
-                    'background-color': color,
-                    'border': '2px solid white',
-                    'box-sizing' : 'border-box'
-                });
+
 
                 // make position sensitive to size and document's width
                 var dispo = isDisponible();
                 console.log(dispo);
                 randId = Math.floor(Math.random() * dispo.length);
                 console.log(randId);
-                $newdiv.appendTo( $("#"+dispo[randId]) );
+                
                 randIdBis = Math.floor(Math.random() * 2);
                 var alea;
                 if (randIdBis == 1)
@@ -111,8 +105,13 @@ $(document).ready( function(){
                 var index = 1;
                 for (var i = 0; i < 4; i++) {
                     for (var j = 0; j < 4; j++) {
-                        if (index == dispo[randId])
+                        if (index == dispo[randId]) {
                             initGrid[i][j] = alea;
+                            $('#'+dispo[randId]).css({
+                                'background-color' : 'grey'
+
+                            }).html(alea);
+                        }
                         index++;
                     }
                 }
