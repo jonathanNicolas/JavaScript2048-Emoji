@@ -3,7 +3,7 @@ $(document).ready( function(){
     (function ( $ ) {
         //use strict;
         $.fn.mygame = function(size) {
-            console.log('hello');
+            //console.log('hello');
             var gameObject = this.attr('id');
             var blockSize = size;
             var boardSize = blockSize * 4;
@@ -63,7 +63,14 @@ $(document).ready( function(){
                     }
                     e.appendChild(row);
                 }
-
+                var index = 1;
+                for (var i = 0; i < 4; i++) {
+                    for (var j = 0; j < 4; j++) {
+                        if (initGrid[i][j] != 0)
+                            document.getElementById(index).innerHTML = initGrid[i][j];
+                        index++;
+                    }
+                }
                 $(".gridsquare").css({
                     'width':blockSize+'px',
                     'height':blockSize+'px',
