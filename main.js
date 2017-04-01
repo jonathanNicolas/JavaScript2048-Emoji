@@ -157,7 +157,7 @@ $(document).ready( function(){
             var movetoDown = function () {
                 for (var cols = 0; cols < 4; cols++) {
                     var dispo = 3;
-                    for (var lines = 3; lines > 0; lines--) {
+                    for (var lines = 3; lines >= 0; lines--) {
                         if (initGrid[lines][cols] != 0) {
                             if (lines == dispo) {
                                 if ((lines < 3) && (initGrid[dispo + 1][cols] == initGrid[lines][cols])) {
@@ -180,13 +180,74 @@ $(document).ready( function(){
                         }
                     }
                 }
+            };
+
+            var movetoLeft = function () {
+                for (var lines = 0; lines < 4; lines++) {
+                    var dispo = 0;
+                    for (var cols = 0; cols < 4; cols++) {
+                        if (initGrid[lines][cols] != 0) {
+                            if (cols == dispo) {
+                                if ((cols > 0) && (initGrid[lines][dispo - 1] == initGrid[lines][cols])) {
+                                    initGrid[lines][dispo - 1] = (initGrid[lines][dispo - 1]) * 2;
+                                    initGrid[lines][cols] = 0;
+                                } else {
+                                    dispo++;
+                                }
+                            }
+                            else {
+                                if ((dispo != 0) && (initGrid[lines][dispo - 1] == initGrid[lines][cols])) {
+                                    initGrid[lines][dispo - 1] = (initGrid[lines][dispo - 1]) * 2;
+                                    initGrid[lines][cols] = 0;
+                                } else {
+                                    initGrid[lines][dispo] = initGrid[lines][cols];
+                                    initGrid[lines][cols] = 0;
+                                    dispo++;
+                                }
+                            }
+                        }
+                    }
+                }
+
+            };
+
+            var movetoRight = function () {
+                for (var lines = 0; lines < 4; lines++) {
+                    var dispo = 3;
+                    for (var cols = 3; cols >= 0; cols--) {
+                        if (initGrid[lines][cols] != 0) {
+                            if (cols == dispo) {
+                                if ((cols < 3) && (initGrid[lines][dispo + 1] == initGrid[lines][cols])) {
+                                    initGrid[lines][dispo + 1] = (initGrid[lines][dispo + 1]) * 2;
+                                    initGrid[lines][cols] = 0;
+                                } else {
+                                    dispo--;
+                                }
+                            }
+                            else {
+                                if ((dispo != 3) && (initGrid[lines][dispo + 1] == initGrid[lines][cols])) {
+                                    initGrid[lines][dispo + 1] = (initGrid[lines][dispo + 1]) * 2;
+                                    initGrid[lines][cols] = 0;
+                                } else {
+                                    initGrid[lines][dispo] = initGrid[lines][cols];
+                                    initGrid[lines][cols] = 0;
+                                    dispo--;
+                                }
+                            }
+                        }
+                    }
+                }
 
             };
             
             //while (1) {
                 $(document).keypress(function (e){
+                    if (e.keyCode == 37)
+                        movetoLeft();
                     if (e.keyCode == 38)
                         movetoTop();
+                    if (e.keyCode == 39)
+                        movetoRight();
                     if (e.keyCode == 40)
                         movetoDown();
                     genDivs();
