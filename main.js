@@ -51,6 +51,9 @@ $(document).ready( function(){
             var genDivs = function() {
                 console.log(gameObject);
                 var e = document.getElementById(gameObject); // whatever you want to append the rows to:
+                while(e.firstChild){
+                    e.removeChild(e.firstChild);
+                }
                 console.log(e);
                 for(var i = 0; i < 4; i++){
                     var row = document.createElement("div");
@@ -123,13 +126,40 @@ $(document).ready( function(){
             randDiv();
             
             var movetoTop = function () {
-                
-            }
+                for (var cols = 0; cols < 4; cols++) {
+                    var dispo = 0;
+                    for (var lines = 0; lines < 4; lines++) {
+                        if (initGrid[lines][cols] != 0) {
+                            if (lines == dispo) {
+                                if ((lines > 0) && (initGrid[dispo - 1][cols] == initGrid[lines][cols])) {
+                                    initGrid[dispo - 1][cols] = (initGrid[dispo - 1][cols]) * 2;
+                                    initGrid[lines][cols] = 0;
+                                } else {
+                                    dispo++;
+                                }
+                            }
+                            else {
+                                if ((dispo != 0) && (initGrid[lines][cols] == initGrid[dispo - 1][cols])) {
+                                    initGrid[dispo - 1][cols] = (initGrid[dispo - 1][cols]) * 2;
+                                    initGrid[lines][cols] = 0;
+                                } else {
+                                    initGrid[dispo][cols] = initGrid[lines][cols];
+                                    initGrid[lines][cols] = 0;
+                                    dispo++;
+                                }
+                            }
+                        }
+                    }
+                }
+
+            };
             
             //while (1) {
                 $(document).keypress(function (e){
                     if (e.keyCode == 38)
-                        moveToTop();
+                        movetoTop();
+                    genDivs();
+                    //console.table(initGrid);
                     randDiv();
             });
             //}
