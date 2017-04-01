@@ -66,32 +66,58 @@ $(document).ready( function(){
                     }
                     e.appendChild(row);
                 }
-                var index = 1;
-                for (var i = 0; i < 4; i++) {
-                    for (var j = 0; j < 4; j++) {
-                        if (initGrid[i][j] != 0)
-                            document.getElementById(index).innerHTML = initGrid[i][j];
-                        index++;
-                    }
-                }
+
                 $(".gridsquare").css({
                     'width':blockSize+'px',
                     'height':blockSize+'px',
-                    'background-color': 'red',
+                    'line-height':blockSize+'px',
+                    'background-color': 'black',
                     //'padding': '10px',
                     'border': '2px solid white',
+                    'font-size': '70px',
+                    'text-align': 'center',
                     'box-sizing' : 'border-box',
                     'float' : 'left'
                 });
+
+                var index = 1;
+                for (var i = 0; i < 4; i++) {
+                    for (var j = 0; j < 4; j++) {
+                        if (initGrid[i][j] != 0) {
+                            if (initGrid[i][j] == 2)
+                                document.getElementById(index).style.backgroundColor = "blue";
+                            if (initGrid[i][j] == 4)
+                                document.getElementById(index).style.backgroundColor = "green";
+                            if (initGrid[i][j] == 8)
+                                document.getElementById(index).style.backgroundColor = "yellow";
+                            if (initGrid[i][j] == 16)
+                                document.getElementById(index).style.backgroundColor = "DarkGray";
+                            if (initGrid[i][j] == 32)
+                                document.getElementById(index).style.backgroundColor = "DarkOrange";
+                            if (initGrid[i][j] == 64)
+                                document.getElementById(index).style.backgroundColor = "DarkTurquoise";
+                            if (initGrid[i][j] == 128)
+                                document.getElementById(index).style.backgroundColor = "DeepPink";
+                            if (initGrid[i][j] == 256)
+                                document.getElementById(index).style.backgroundColor = "Khaki";
+                            if (initGrid[i][j] == 512)
+                                document.getElementById(index).style.backgroundColor = "Magenta";
+                            if (initGrid[i][j] == 1024)
+                                document.getElementById(index).style.backgroundColor = "MediumSlateBlue";
+                            if (initGrid[i][j] == 2048)
+                                document.getElementById(index).style.backgroundColor = "Olive";
+                            document.getElementById(index).innerHTML = initGrid[i][j];
+                        }
+                        index++;
+                    }
+                }
                 $("#"+gameObject).innerText = e.innerHTML;
+
+
 
             }
 
             var randDiv = function (){
-                var divsize = blockSize;
-                var color = '#'+ Math.round(0xffffff * Math.random()).toString(16);
-
-
                 // make position sensitive to size and document's width
                 var dispo = isDisponible();
                 console.log(dispo);
@@ -110,10 +136,6 @@ $(document).ready( function(){
                     for (var j = 0; j < 4; j++) {
                         if (index == dispo[randId]) {
                             initGrid[i][j] = alea;
-                            $('#'+dispo[randId]).css({
-                                'background-color' : 'grey'
-
-                            }).html(alea);
                         }
                         index++;
                     }
@@ -121,10 +143,9 @@ $(document).ready( function(){
 
             };
             init();
+            randDiv();
+            randDiv();
             genDivs();
-            randDiv();
-            randDiv();
-            
             var movetoTop = function () {
                 for (var cols = 0; cols < 4; cols++) {
                     var dispo = 0;
@@ -253,6 +274,7 @@ $(document).ready( function(){
                     genDivs();
                     //console.table(initGrid);
                     randDiv();
+                    genDivs();
             });
             //}
 
