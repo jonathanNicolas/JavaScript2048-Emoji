@@ -153,11 +153,42 @@ $(document).ready( function(){
                 }
 
             };
+
+            var movetoDown = function () {
+                for (var cols = 0; cols < 4; cols++) {
+                    var dispo = 3;
+                    for (var lines = 3; lines > 0; lines--) {
+                        if (initGrid[lines][cols] != 0) {
+                            if (lines == dispo) {
+                                if ((lines < 3) && (initGrid[dispo + 1][cols] == initGrid[lines][cols])) {
+                                    initGrid[dispo + 1][cols] = (initGrid[dispo + 1][cols]) * 2;
+                                    initGrid[lines][cols] = 0;
+                                } else {
+                                    dispo--;
+                                }
+                            }
+                            else {
+                                if ((dispo != 3) && (initGrid[lines][cols] == initGrid[dispo + 1][cols])) {
+                                    initGrid[dispo + 1][cols] = (initGrid[dispo + 1][cols]) * 2;
+                                    initGrid[lines][cols] = 0;
+                                } else {
+                                    initGrid[dispo][cols] = initGrid[lines][cols];
+                                    initGrid[lines][cols] = 0;
+                                    dispo--;
+                                }
+                            }
+                        }
+                    }
+                }
+
+            };
             
             //while (1) {
                 $(document).keypress(function (e){
                     if (e.keyCode == 38)
                         movetoTop();
+                    if (e.keyCode == 40)
+                        movetoDown();
                     genDivs();
                     //console.table(initGrid);
                     randDiv();
@@ -168,5 +199,3 @@ $(document).ready( function(){
     })( jQuery );
     $('#board').mygame(200);
 });
-
-
