@@ -11,10 +11,10 @@ $(document).ready( function(){
 
             var makeGrid = function() {
                 initGrid = [
-                    [2, 2, 0, 2],
-                    [2, 2, 2, 2],
-                    [2, 2, 2, 2],
-                    [0, 2, 2, 2]
+                    [0, 0, 0, 0],
+                    [0, 0, 0, 0],
+                    [0, 0, 0, 0],
+                    [0, 0, 0, 0]
                 ];
 
                 for (var row = 0; row < initGrid.length; ++row) {
@@ -120,6 +120,20 @@ $(document).ready( function(){
             init();
             genDivs();
             randDiv();
+            randDiv();
+            
+            var movetoTop = function () {
+                
+            }
+            
+            //while (1) {
+                $(document).keypress(function (e){
+                    if (e.keyCode == 38)
+                        moveToTop();
+                    randDiv();
+            });
+            //}
+
         };
     })( jQuery );
     $('#board').mygame(200);
